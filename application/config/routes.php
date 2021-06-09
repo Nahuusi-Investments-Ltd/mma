@@ -68,5 +68,9 @@ $route['privacy'] = 'home/privacy';
 $route['subscription'] = 'home/newsletter_subscription';
 $route['blog/detail/(:any)'] = 'home/blog_detail/$1';
 
+$route['admin/login'] = 'login';
+$route['admin/user/login'] = 'login/process_login';
+$route['admin/category/detail'] = 'admin/category_detail';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

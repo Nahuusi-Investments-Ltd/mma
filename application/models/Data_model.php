@@ -16,7 +16,7 @@ class Data_model extends CI_Model {
     	return $this->db->query('SELECT UUID() AS uuid')->row()->uuid;
     }
 
-    function insert_table_date($table, $data){
+    function insert_table_data($table, $data){
     	return $this->db->insert($table, $data);
     }
 
