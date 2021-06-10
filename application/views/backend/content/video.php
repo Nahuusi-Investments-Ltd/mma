@@ -3,7 +3,7 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item active"><strong>Videos</strong></a></li>
+                    <li class="breadcrumb-item active"><strong>Media Content</strong></a></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -18,12 +18,12 @@
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" data-toggle="tab" href="#list-tab" role="tab" aria-controls="list-tab">
-                                            All Videos
+                                            All Media
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#add-tab" role="tab" aria-controls="add-tab">
-                                            Add New Video
+                                            Add New Media
                                         </a>
                                     </li>
                                 </ul>
@@ -36,7 +36,7 @@
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th width="50%">Title</th>
-                                                        <th>Video</th>
+                                                        <th>Media</th>
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -60,7 +60,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="link" class="font-weight-bold">Video Link<span class="text-danger">*</span></label>
+                                                        <label for="link" class="font-weight-bold">Media Link<span class="text-danger">*</span></label>
                                                         <input class="form-control" name="link" type="text" required="" />
                                                     </div>
                                                 </div>

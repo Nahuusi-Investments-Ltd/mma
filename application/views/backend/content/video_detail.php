@@ -3,7 +3,7 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item"><a href="<?php echo site_url('video'); ?>">Videos</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo site_url('video'); ?>">Media</a></li>
                     <li class="breadcrumb-item active"><?php echo $video->title; ?></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
@@ -48,7 +48,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="description" class="font-weight-bold">Description<span class="text-danger">*</span></label>
+                                                        <label for="description" class="font-weight-bold">Media Link<span class="text-danger">*</span></label>
                                                         <input class="form-control" name="link" type="text" required="" value="<?php echo $video->link; ?>" />
                                                     </div>
                                                 </div>
