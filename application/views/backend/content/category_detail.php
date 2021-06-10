@@ -3,7 +3,7 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item"><a href="<?php echo site_url('admin'); ?>">Categories</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo site_url('category'); ?>">Categories</a></li>
                     <li class="breadcrumb-item active"><?php echo $category->title; ?></li>
                     <!-- Breadcrumb Menu-->
                 </ol>

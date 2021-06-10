@@ -1,9 +1,10 @@
-            <!-- dashboard -->
+            <!-- order view -->
             <?php $this->load->view('backend/partials/header'); ?>
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item active"><strong>Classes</strong></a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo site_url('mclass'); ?>">Classes</a></li>
+                    <li class="breadcrumb-item active"><?php echo $class->title; ?></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -12,49 +13,39 @@
             <main class="c-main">
                 <div class="container-fluid">
                     <div class="fade-in">
-                        <!-- classes -->
                         <div class="card">
-                            <div class="card-body">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#list-tab" role="tab" aria-controls="list-tab">
-                                            All Classes
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#add-tab" role="tab" aria-controls="add-tab">
-                                            Add New Class
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="list-tab" role="tabpanel">
-                                        <br/>
-                                        <div class="table-responsive">
-                                            <table id="classes" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th>Title</th>
-                                                        <th>Sub Title</th>
-                                                        <th>Tag</th>
-                                                        <th>Content</th>
-                                                        <th width="20%">Class Photo</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h1>Edit Class Form</h1>
                                     </div>
-
-                                    <div class="tab-pane" id="add-tab" role="tabpanel">
-                                        <br/>
-                                        <form id="class-form" name="class-form" method="post" action="" enctype="multipart/form-data">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form id="class-form" name="class-form" method="post" action="" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<?php echo $class->id; ?>" />
+                                    <input type="hidden" name="class_link" value="<?php echo $class->link; ?>" />
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#detail" role="tab" aria-controls="detail">
+                                                Form Data
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#preview" role="tab" aria-controls="preview">
+                                                Image Preview
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="detail" role="tabpanel">
+                                            <br/>
                                             <!-- title -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="title" class="font-weight-bold">Title<span class="text-danger">*</span></label>
-                                                        <input class="form-control" name="title" type="text" required="" />
+                                                        <input class="form-control" name="title" type="text" required="" value="<?php echo $class->title; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,7 +55,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="sub_title" class="font-weight-bold">Sub Title<span class="text-danger">*</span></label>
-                                                        <input class="form-control" name="sub_title" type="text" required="" />
+                                                        <input class="form-control" name="sub_title" type="text" required="" value="<?php echo $class->sub_title; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -74,7 +65,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="tag" class="font-weight-bold">Tag<span class="text-danger">*</span></label>
-                                                        <select name="tag" class="form-control" required="">
+                                                        <select id="tag" name="tag" class="form-control" required="">
                                                             <option value=""></option>
                                                             <option value="AdultClasses">Adult</option>
                                                             <option value="KidsClasses">Kids</option>
@@ -90,7 +81,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="content" class="font-weight-bold">Content<span class="text-danger">*</span></label>
-                                                        <textarea name="content" class="form-control" required="" rows="10"></textarea>
+                                                        <textarea name="content" class="form-control" required="" rows="10"><?php echo $class->content; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,18 +90,34 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="link" class="font-weight-bold">Image <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span><span class="text-danger">*</span></label>
-                                                        <input class="form-control-file" name="link" type="file" accept=".jpg,.png" required="" />
+                                                        <label for="link" class="font-weight-bold">Image <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span></label>
+                                                        <input class="form-control-file" name="link" type="file" accept=".jpg,.png" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <br/>
-                                            <button class="btn btn-block btn-dark" type="submit"><strong>Save</strong></button>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <button class="btn btn-block btn-dark" type="submit"><strong>Save</strong></button>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span class="btn btn-block btn-danger" onclick="delete_record();"><strong>Delete</strong></span>
+                                                </div>
+                                            </div>
                                             <br/>
-                                        </form>
+                                        </div>
+                                        <div class="tab-pane" id="preview" role="tabpanel">
+                                            <br/>
+                                            <!-- sample preview -->
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div id="document-preview" style="width: 100%; height: 500px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -124,42 +131,23 @@
             </footer>
         </div>
         <?php $this->load->view('backend/partials/scripts'); ?>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
         <script type="text/javascript">
-            var classes_table = null;
+             var quill;
 
             $(document).ready(function(){
-                classes_table = $('#classes').DataTable({
-                    ajax: {
-                        url: '<?php echo site_url('mclass/list'); ?>',
-                        dataSrc: "records"
-                    },
-                    columns: [
-                        {data: "title"},
-                        {data: "sub_title"},
-                        {data: "tag"},
-                        {data: "content"},
-                        {data: "link"}
+                $('#tag').val('<?php echo $class->tag; ?>');
 
-                    ],
-                    createdRow: function (row, data, dataIndex) {
-                        $(row).attr('data-id', data.id);
-                    },
-                    pageLength: 100,
-                    stateSave: true,
-                });
-
-                $('#classes tbody').on('click', 'tr', function () {
-                    window.location.href = window.location.href = '<?php echo site_url('mclass/detail'); ?>?id=' + $(this).data("id");
-                });
+                var image_link = '<?php echo base_url('uploads/class'); ?>/<?php echo $class->link; ?>';
+                PDFObject.embed(image_link, "#document-preview");
 
                 $("form[name='class-form']").submit(function(e) {
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 
                     $.ajax({
-                        url: '<?php echo site_url('mclass/add'); ?>',
+                        url: '<?php echo site_url('mclass/save'); ?>',
                         type: "POST",
                         data: formData,
                         dataType: "json",
@@ -170,24 +158,20 @@
                             loading.out();
                         },
                         statusCode: {
-                            201: function(request, status, error){
+                            204: function(request, status, error){
                                 Swal.fire({
-                                    text: 'class added successfully.',
+                                    text: 'class updated!',
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
                                     customClass: {
                                         confirmButton: "btn font-weight-bold btn-light-primary"
                                     }
-                                }).then(function(){
-                                    $('#class-form').trigger("reset");
-
-                                    classes_table.ajax.reload();
                                 });
                             },
                             400: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding class. please try again later.',
+                                    text: 'unable to save class. please try again later.',
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -198,7 +182,7 @@
                             },
                             500: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding class. please try again later.',
+                                    text: 'unable to save class. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -207,7 +191,7 @@
                             },
                             0: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding class. please try again later.',
+                                    text: 'unable to save class. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -223,6 +207,31 @@
                     e.preventDefault();
                 });
             });
+
+            function delete_record(){
+                Swal.fire({
+                    text: "Are you sure you want to delete: <?php echo $class->title; ?>?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true
+                }).then(function(result) {
+                    if (result.value) {
+                        // set user to delete
+                        var settings = {
+                            "url": "<?php echo site_url('mclass/delete'); ?>?id=<?php echo $class->id; ?>",
+                            "method": "DELETE"
+                        };
+
+                        var loading = new Loading();
+                        $.ajax(settings).done(function (response) {
+                            loading.out();
+                            window.location.href = '<?php echo site_url('mclass'); ?>';
+                        });
+                    }
+                });
+            }
         </script>
     </body>
 </html>
