@@ -2,43 +2,44 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Photo extends MY_Controller {
-    private $tbl_media = 'tbl_media';
+    private $tbl_photo = 'tbl_photo';
 
     function index(){
         $data['title'] = 'Photos';
         $data['minimized'] = false;
 
-        $this->load->view('backend/content/video', $data);
+        $this->load->view('backend/content/photo', $data);
     }
 
     function detail(){
-        $video = $this->data_model->get_table_data_where($this->tbl_media, array('id' => $this->input->get('id')))->row();
-        if(!$video)
-            redirect('video', 'refresh');
+        $photo = $this->data_model->get_table_data_where($this->tbl_photo, array('id' => $this->input->get('id')))->row();
+        if(!$photo)
+            redirect('photo', 'refresh');
 
-        $data['title'] = $video->title;
+        $data['title'] = $photo->title;
         $data['minimized'] = false;
-        $data['video'] = $video;
+        $data['photo'] = $photo;
 
-        $this->load->view('backend/content/video_detail', $data);
+        $this->load->view('backend/content/photo_detail', $data);
     }
 
     function list(){
         header('Content-type: application/json');
-        $videos = $this->data_model->get_table_data($this->tbl_media);
+        $photos = $this->data_model->get_table_data($this->tbl_photo);
 
         $response = array(
             'success' => true,
-            'videos' => array(
+            'photos' => array(
             )
         );
 
-        foreach ($videos->result() as $data) {
-            $frame_src = '<iframe width="460" height="215" src="'.$data->link.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-            array_push($response['videos'], array(
+        foreach ($photos->result() as $data) {
+            $photo_url = base_url('uploads/photo').'/'.$data->link;
+
+            array_push($response['photos'], array(
                 'id' => $data->id,
                 'title' => $data->title,
-                'link' => $frame_src
+                'link' => '<img class="img-thumbnail" src="'.$photo_url.'" alt="'.$data->title.'">'
             ));
         }
         
@@ -48,17 +49,36 @@ class Photo extends MY_Controller {
     function add(){
         header('Content-type: application/json');
 
+        $config['upload_path'] = './uploads/photo';
+        $config['allowed_types'] = '*';
+        $config['max_size'] = 10000000;
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+
         $data = array(
             'title' => $this->input->post('title'),
-            'link' => $this->input->post('link')
+            'link' => ''
         );
 
-        if($this->data_model->insert_table_data($this->tbl_media, $data)){
+        $upload_errors = '';
+
+        if(!empty($_FILES['link']['name'])){
+            if(!$this->upload->do_upload('link')){
+                $upload_errors = $this->upload->display_errors();
+            }
+            else{
+                $upload_data  = $this->upload->data();
+                $data['link'] = $upload_data['file_name'];
+            }
+        }
+
+        if($this->data_model->insert_table_data($this->tbl_photo, $data)){
             http_response_code(201);
 
             die(json_encode(array(
                 'sucess' => true,
-                'message' => 'media added successfully.'
+                'message' => 'photo added successfully.'
             )));
         }
         else{
@@ -66,7 +86,7 @@ class Photo extends MY_Controller {
 
             die(json_encode(array(
                 'sucess' => false,
-                'message' => 'something went wrong while adding media. try again later.'
+                'message' => 'something went wrong while adding photo. try again later.'
             )));
         }
     }
@@ -74,19 +94,44 @@ class Photo extends MY_Controller {
     function save(){
         header('Content-type: application/json');
 
+        $config['upload_path'] = './uploads/photo';
+        $config['allowed_types'] = '*';
+        $config['max_size'] = 10000000;
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+
         $data = array(
-            'title' => $this->input->post('title'),
-            'link' => $this->input->post('link')
+            'title' => $this->input->post('title')
         );
 
         $condition = array('id' => $this->input->post('id'));
+        $photo = $this->data_model->get_table_data_where($this->tbl_photo, $condition)->row();
+        $current_link = $photo->link;
 
-        if($this->data_model->save_table_data($this->tbl_media, $data, $condition)){
+        $upload_errors = '';
+
+        if(!empty($_FILES['link']['name'])){
+            if(!$this->upload->do_upload('link')){
+                $upload_errors = $this->upload->display_errors();
+            }
+            else{
+                $upload_data  = $this->upload->data();
+                $data['link'] = $upload_data['file_name'];
+
+                unlink('./uploads/photo/'.$current_link);
+            }
+        }
+        else{
+            $data['link'] = $this->input->post('photo_link');
+        }
+
+        if($this->data_model->save_table_data($this->tbl_photo, $data, $condition)){
             http_response_code(204);
 
             die(json_encode(array(
                 'sucess' => true,
-                'message' => 'media updated successfully.'
+                'message' => 'photo updated successfully.'
             )));
         }
         else{
@@ -94,7 +139,7 @@ class Photo extends MY_Controller {
 
             die(json_encode(array(
                 'sucess' => false,
-                'message' => 'something went wrong while saving media. try again later.'
+                'message' => 'something went wrong while saving photo. try again later.'
             )));
         }
     }
@@ -106,7 +151,11 @@ class Photo extends MY_Controller {
             'id' => $this->input->get('id')
         );
 
-        if($this->data_model->delete_table_data($this->tbl_media, $condition)){
+        $photo = $this->data_model->get_table_data_where($this->tbl_photo, $condition)->row();
+        $link = $photo->link;
+
+        if($this->data_model->delete_table_data($this->tbl_photo, $condition)){
+            unlink('./uploads/photo/'.$link);
             http_response_code(204);
             die(json_encode(array(
                 'success' => true,

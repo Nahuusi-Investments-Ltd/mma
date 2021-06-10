@@ -67,7 +67,6 @@ $route['standards'] = 'home/standard';
 $route['privacy'] = 'home/privacy';
 $route['subscription'] = 'home/newsletter_subscription';
 $route['blog/detail/(:any)'] = 'home/blog_detail/$1';
-$route['subscription'] = 'home/newsletter_subscription';
 
 $route['admin/login'] = 'login';
 $route['admin/user/login'] = 'login/process_login';

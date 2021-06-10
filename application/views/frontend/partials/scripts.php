@@ -51,7 +51,6 @@
 	$(document).ready(function(){
 		$("form[name='newsletter-form']").submit(function(e) {
         	var loading = new Loading();
-
             var formData = new FormData($(this)[0]);
             
             $.ajax({

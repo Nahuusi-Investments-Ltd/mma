@@ -36,10 +36,14 @@ class Blogs extends MY_Controller {
         foreach ($blogs->result() as $data) {
             $image_url = base_url('uploads/blog').'/'.$data->link;
 
+            $blog_exceprt = $data->message;
+            if(strlen($data->message) > 250)
+                $blog_exceprt = substr($data->message, 0, 250).'[...]';
+
             array_push($response['blogs'], array(
                 'id' => $data->id,
                 'title' => $data->title,
-                'message' => $data->message,
+                'message' => $blog_exceprt,
                 'number_of_views' => $data->number_of_views,
                 'link' => '<img class="img-thumbnail" src="'.$image_url.'" alt="'.$data->title.'">'
             ));
@@ -61,7 +65,7 @@ class Blogs extends MY_Controller {
         $data = array(
             'title' => $this->input->post('title'),
             'message' => $this->input->post('message'),
-            'number_of_views' => $this->input->post('number_of_views'),
+            //'number_of_views' => $this->input->post('number_of_views'),
             'link' => ''
         );
 
@@ -108,7 +112,7 @@ class Blogs extends MY_Controller {
         $data = array(
             'title' => $this->input->post('title'),
             'message' => $this->input->post('message'),
-            'number_of_views' => $this->input->post('number_of_views'),
+            // 'number_of_views' => $this->input->post('number_of_views'),
         );
 
         $condition = array('id' => $this->input->post('id'));

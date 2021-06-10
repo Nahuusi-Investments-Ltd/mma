@@ -3,8 +3,8 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item"><a href="<?php echo site_url('blogs'); ?>">Blogs</a></li>
-                    <li class="breadcrumb-item active"><?php echo $blog->title; ?></li>
+                    <li class="breadcrumb-item"><a href="<?php echo site_url('photo'); ?>">Photos</a></li>
+                    <li class="breadcrumb-item active"><?php echo $photo->title; ?></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -17,14 +17,14 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h1>Edit Blog Form</h1>
+                                        <h1>Edit Photo Form</h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form id="blog-form" name="blog-form" method="post" action="" enctype="multipart/form-data">
-                                    <input type="hidden" name="id" value="<?php echo $blog->id; ?>" />
-                                    <input type="hidden" name="blog_link" value="<?php echo $blog->link; ?>" />
+                                <form id="photo-form" name="photo-form" method="post" action="" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<?php echo $photo->id; ?>" />
+                                    <input type="hidden" name="photo_link" value="<?php echo $photo->link; ?>" />
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" href="#detail" role="tab" aria-controls="detail">
@@ -33,7 +33,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-toggle="tab" href="#preview" role="tab" aria-controls="preview">
-                                                Blog Image Preview
+                                                Photo Preview
                                             </a>
                                         </li>
                                     </ul>
@@ -45,41 +45,21 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="title" class="font-weight-bold">Title<span class="text-danger">*</span></label>
-                                                        <input class="form-control" name="title" type="text" required="" value="<?php echo $blog->title; ?>" />
+                                                        <input class="form-control" name="title" type="text" required="" value="<?php echo $photo->title; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <!-- number of views -->
-                                            <!--<div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="number_of_views" class="font-weight-bold">Number of Views<span class="text-danger">*</span></label>
-                                                        <input class="form-control" name="number_of_views" type="number" required="" value="<?php echo $blog->number_of_views; ?>" />
-                                                    </div>
-                                                </div>
-                                            </div>-->
 
                                             <!-- image -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="link" class="font-weight-bold">Blog Image <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span></label>
+                                                        <label for="link" class="font-weight-bold">Photo <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span></label>
                                                         <input class="form-control-file" name="link" type="file" accept=".jpg,.png" />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <br/>
-                                            <!-- message -->
-                                            <input type="hidden" name="message" id="content_message" />
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div id="editor" style="height: 400px;"><?php echo $blog->message; ?></div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <br/>
                                             <div class="row">
                                                 <div class="col-sm-6">
@@ -121,26 +101,15 @@
              var quill;
 
             $(document).ready(function(){
-                // quill editor
-                quill = new Quill('#editor', {
-                    modules: {
-                        toolbar: quill_toolbar_options
-                    },
-                    theme: 'snow'
-                });
-
-                var image_link = '<?php echo base_url('uploads/blog'); ?>/<?php echo $blog->link; ?>';
+                var image_link = '<?php echo base_url('uploads/photo'); ?>/<?php echo $photo->link; ?>';
                 PDFObject.embed(image_link, "#document-preview");
 
-                $("form[name='blog-form']").submit(function(e) {
-                    var html = quill.root.innerHTML;
-                    $('#content_message').val(html);
-
+                $("form[name='photo-form']").submit(function(e) {
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 
                     $.ajax({
-                        url: '<?php echo site_url('blogs/save'); ?>',
+                        url: '<?php echo site_url('photo/save'); ?>',
                         type: "POST",
                         data: formData,
                         dataType: "json",
@@ -153,7 +122,7 @@
                         statusCode: {
                             204: function(request, status, error){
                                 Swal.fire({
-                                    text: 'blog updated!',
+                                    text: 'photo updated!',
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -164,7 +133,7 @@
                             },
                             400: function(request, status, error){
                                 Swal.fire({
-                                    text: 'unable to save blog. please try again later.',
+                                    text: 'unable to save photo. please try again later.',
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -175,7 +144,7 @@
                             },
                             500: function(request, status, error){
                                 Swal.fire({
-                                    text: 'unable to save blog. please try again later.',
+                                    text: 'unable to save photo. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -184,7 +153,7 @@
                             },
                             0: function(request, status, error){
                                 Swal.fire({
-                                    text: 'unable to save blog. please try again later.',
+                                    text: 'unable to save photo. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -203,7 +172,7 @@
 
             function delete_record(){
                 Swal.fire({
-                    text: "Are you sure you want to delete: <?php echo $blog->title; ?>?",
+                    text: "Are you sure you want to delete: <?php echo $photo->title; ?>?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Delete",
@@ -213,14 +182,14 @@
                     if (result.value) {
                         // set user to delete
                         var settings = {
-                            "url": "<?php echo site_url('blogs/delete'); ?>?id=<?php echo $blog->id; ?>",
+                            "url": "<?php echo site_url('photo/delete'); ?>?id=<?php echo $photo->id; ?>",
                             "method": "DELETE"
                         };
 
                         var loading = new Loading();
                         $.ajax(settings).done(function (response) {
                             loading.out();
-                            window.location.href = '<?php echo site_url('blogs'); ?>';
+                            window.location.href = '<?php echo site_url('photo'); ?>';
                         });
                     }
                 });

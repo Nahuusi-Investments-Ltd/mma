@@ -32,16 +32,19 @@
 
 				<div class="row">
 					<?php foreach($media->result() as $media) { ?>
-				  	<div class="col-md-4">
+				  	<?php $photo_url = base_url('uploads/photo').'/'.$media->link; ?>
+					<div class="col-sm-6 col-md-4">
 					    <div class="thumbnail">
-					      	<iframe width="560" height="315" src="<?php echo $media->link; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-					      	</iframe>
-					      	<div class="caption">
-					        	<p>
-					        		<?php echo $media->title; ?>
-					        	</p>
-					      	</div>
+					    	<a href="#">
+						      	<img src="<?php echo $photo_url; ?>" alt="<?php echo $media->title; ?>">
+						      	<div class="caption">
+						        	<h4>
+						    			<?php echo $media->title; ?>
+						    		</h4>
+						      	</div>
+					      	</a>
 					    </div>
+					</div>
 				  	</div>
 				  	<?php } ?>
 				</div>

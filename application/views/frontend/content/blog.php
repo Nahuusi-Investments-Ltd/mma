@@ -48,7 +48,15 @@
 								<div class="post-right"><i class="icon-eye"></i><?php echo $blog->number_of_views; ?></div>
 							</div>
 							<h2><?php echo $blog->title; ?></h2>
-							<p><?php echo $blog->message; ?></p>
+							<p>
+								<?php 
+								$blog_exceprt = $blog->message;
+					            if(strlen($blog->message) > 250)
+					                $blog_exceprt = substr($blog->message, 0, 250).'[...]';
+					            
+								echo $blog_exceprt; 
+								?>
+							</p>
 							<a href="<?php echo site_url('blog/detail'); ?>/<?php echo $blog->id; ?>" class="btn_1">Read more</a>
 						</div>
 						<?php } ?>

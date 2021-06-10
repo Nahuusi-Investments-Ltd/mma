@@ -219,4 +219,66 @@
 		<?php $this->load->view('frontend/partials/search'); ?>
 		<?php $this->load->view('frontend/partials/scripts'); ?>
 	</body>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("form[name='enroll-form']").submit(function(e) {
+	        	var loading = new Loading();
+	            var formData = new FormData($(this)[0]);
+            
+	            $.ajax({
+	                url: '<?php echo site_url('home/enroll_user'); ?>',
+	                type: "POST",
+	                data: formData,
+	                dataType: "json",
+	                success: function(response) {
+	                	loading.out();
+
+	                	if(response.success){
+	                		$('#enroll-form').trigger("reset");
+
+	                		Swal.fire({
+				                text: response.message,
+				                icon: "success",
+				                buttonsStyling: false,
+				                confirmButtonText: "OK",
+		                        customClass: {
+		    						confirmButton: "btn font-weight-bold btn-light-primary"
+		    					}
+				            });
+	                	}
+	                	else{
+	                		Swal.fire({
+				                text: response.message,
+				                icon: "error",
+				                buttonsStyling: false,
+				                confirmButtonText: "OK",
+		                        customClass: {
+		    						confirmButton: "btn font-weight-bold btn-light-primary"
+		    					}
+				            });
+	                	}
+	                },
+	                error: function(xhr, status, error) {
+	                    var json = $.parseJSON(xhr.responseText);
+
+	                    Swal.fire({
+			                text: json.message,
+			                icon: "error",
+			                buttonsStyling: false,
+			                confirmButtonText: "OK",
+	                        customClass: {
+	    						confirmButton: "btn font-weight-bold btn-light-primary"
+	    					}
+			            });
+	                },
+	                cache: false,
+	                contentType: false,
+	                processData: false
+	            });
+
+	            e.preventDefault();
+	        });
+		});
+	</script>
 </html>

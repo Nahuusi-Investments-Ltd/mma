@@ -61,7 +61,7 @@ class Home extends CI_Controller {
 	function photo(){
 		$data['title'] = '374 MMA Photos';
 		$data['training_reasons'] = $this->data_model->get_table_data('tbl_train_reasons');
-		$data['media'] = $this->data_model->get_table_data('tbl_media');
+		$data['media'] = $this->data_model->get_table_data('tbl_photo');
 		$this->load->view('frontend/content/photo', $data);
 	}
 
@@ -139,5 +139,48 @@ class Home extends CI_Controller {
 				'success' => false,
 				'message' => 'Something went wrong while trying to submit your subscription. Please try again later.'
 			)));
+	}
+
+	function enroll_user(){
+		header('Content-type: application/json');
+
+		$name = $this->input->post('firstname_booking').' '.$this->input->post('lastname_booking');
+		$email = $this->input->post('email_booking');
+		$telephone = $this->input->post('telephone_booking');
+		$adult_classes = implode(',', $this->input->post('adult_classes'));
+		$youth_classes = implode(',', $this->input->post('youth_classes'));
+		$kids_classes = implode(',', $this->input->post('kids_classes'));
+		$newsletter = $this->input->post('newsletter');
+
+		$subject = '374MMA New Enrollment';
+		$message = 'Name: '.$name."\n\nEmail: ".$email."\n\nTelephone Number: ".$telephone."\n\nAdult Classes: ".$adult_classes."\n\nYouth Classes: ".$youth_classes."\n\nKids Classes: ".$kids_classes."\n\nReceive Newsletter Updates: ".$newsletter."\n\n";
+
+		$config['smtp_host'] = $_ENV['SMTP_HOST'];
+        $config['smtp_port'] = $_ENV['SMTP_PORT'];
+        $config['smtp_user'] = $_ENV['SMTP_USER'];
+        $config['smtp_pass'] = $_ENV['SMTP_PASSWORD'];
+        $config['protocol'] = $_ENV['SMTP_PROTOCOL'];
+        $config['smtp_crypto'] = $_ENV['SMTP_CRYPTO'];
+        $config['mailtype'] = $_ENV['SMTP_TYPE'];
+        $config['wordWrap'] = true;
+
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+
+        $this->email->from($_ENV['SMTP_USER'], $_ENV['SITE_TITLE']);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        $this->email->to($_ENV['SMTP_USER']);
+
+        if($this->email->send())
+        	die(json_encode(array(
+        		'success' => true,
+        		'message' => 'enrollment received'
+        	)));
+        else
+        	die(json_encode(array(
+        		'success' => false,
+        		'message' => $this->email->printDebugger(['headers'])
+        	)));
 	}
 }
