@@ -129,7 +129,7 @@ class Home extends CI_Controller {
 		);
 
 		
-		if($this->data_model->insert_table_date('tbl_subscriptions', $data))
+		if($this->data_model->insert_table_data('tbl_subscriptions', $data))
 			die(json_encode(array(
 				'success' => true,
 				'message' => 'Thank you '.$this->input->post('email_newsletter').', your subscription has been submitted.'
