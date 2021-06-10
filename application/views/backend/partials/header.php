@@ -119,6 +119,15 @@
                         Classes
                     </a>
                 </li>
+                <li class="c-sidebar-nav-title">FAQ Page</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('admin/faq'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-bolt'); ?>"></use>
+                        </svg>
+                        FAQs
+                    </a>
+                </li>
             </ul>
             <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
         </div>
