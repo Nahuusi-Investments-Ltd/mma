@@ -128,6 +128,31 @@
                         FAQs
                     </a>
                 </li>
+                <li class="c-sidebar-nav-title">Media Page</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('blogs'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-copy'); ?>"></use>
+                        </svg>
+                        Blogs
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('photo'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-wallpaper'); ?>"></use>
+                        </svg>
+                        Photos
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('video'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-camera-roll'); ?>"></use>
+                        </svg>
+                        Videos
+                    </a>
+                </li>
             </ul>
             <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
         </div>

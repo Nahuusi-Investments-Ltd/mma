@@ -3,7 +3,7 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item active"><strong>Training Reasons</strong></a></li>
+                    <li class="breadcrumb-item active"><strong>Videos</strong></a></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -17,35 +17,35 @@
                             <div class="card-body">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#reasons-list" role="tab" aria-controls="reasons-list">
-                                            All Training Reasons
+                                        <a class="nav-link active" data-toggle="tab" href="#list-tab" role="tab" aria-controls="list-tab">
+                                            All Videos
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#add-reason" role="tab" aria-controls="add-reason">
-                                            Add New Reason
+                                        <a class="nav-link" data-toggle="tab" href="#add-tab" role="tab" aria-controls="add-tab">
+                                            Add New Video
                                         </a>
                                     </li>
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="reasons-list" role="tabpanel">
+                                    <div class="tab-pane active" id="list-tab" role="tabpanel">
                                         <br/>
                                         <div class="table-responsive">
-                                            <table id="reasons" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
+                                            <table id="videos" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
                                                 <thead class="thead-dark">
                                                     <tr>
-                                                        <th width="35%">Title</th>
-                                                        <th>Description</th>
+                                                        <th width="50%">Title</th>
+                                                        <th>Video</th>
                                                     </tr>
                                                 </thead>
                                             </table>
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane" id="add-reason" role="tabpanel">
+                                    <div class="tab-pane" id="add-tab" role="tabpanel">
                                         <br/>
-                                        <form id="reason-form" name="reason-form" method="post" action="">
+                                        <form id="video-form" name="video-form" method="post" action="">
                                             <!-- title -->
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -57,12 +57,11 @@
                                             </div>
 
                                             <br/>
-                                            <!-- description -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="description" class="font-weight-bold">Description<span class="text-danger">*</span></label>
-                                                        <textarea class="form-control" name="description" rows="5" required=""></textarea>
+                                                        <label for="link" class="font-weight-bold">Video Link<span class="text-danger">*</span></label>
+                                                        <input class="form-control" name="link" type="text" required="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -88,17 +87,17 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <script type="text/javascript">
-            var reasons_table = null;
+            var videos_table = null;
 
             $(document).ready(function(){
-                reasons_table = $('#reasons').DataTable({
+                videos_table = $('#videos').DataTable({
                     ajax: {
-                        url: '<?php echo site_url('training/list'); ?>',
-                        dataSrc: "training_reasons"
+                        url: '<?php echo site_url('video/list'); ?>',
+                        dataSrc: "videos"
                     },
                     columns: [
                         {data: "title"},
-                        {data: "description"}
+                        {data: "link"}
 
                     ],
                     createdRow: function (row, data, dataIndex) {
@@ -108,16 +107,16 @@
                     stateSave: true,
                 });
 
-                $('#reasons tbody').on('click', 'tr', function () {
-                    window.location.href = window.location.href = '<?php echo site_url('training/detail'); ?>?id=' + $(this).data("id");
+                $('#videos tbody').on('click', 'tr', function () {
+                    window.location.href = window.location.href = '<?php echo site_url('video/detail'); ?>?id=' + $(this).data("id");
                 });
 
-                $("form[name='reason-form']").submit(function(e) {
+                $("form[name='video-form']").submit(function(e) {
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 
                     $.ajax({
-                        url: '<?php echo site_url('training/add'); ?>',
+                        url: '<?php echo site_url('video/add'); ?>',
                         type: "POST",
                         data: formData,
                         dataType: "json",
@@ -130,7 +129,7 @@
                         statusCode: {
                             201: function(request, status, error){
                                 Swal.fire({
-                                    text: 'reason added successfully.',
+                                    text: 'media added successfully.',
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -138,14 +137,14 @@
                                         confirmButton: "btn font-weight-bold btn-light-primary"
                                     }
                                 }).then(function(){
-                                    $('#reason-form').trigger("reset");
+                                    $('#video-form').trigger("reset");
 
-                                    reasons_table.ajax.reload();
+                                    videos_table.ajax.reload();
                                 });
                             },
                             400: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding training reason. please try again later.',
+                                    text: 'something went wrong while adding media. please try again later.',
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -156,7 +155,7 @@
                             },
                             500: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding training reason. please try again later.',
+                                    text: 'something went wrong while adding media. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -165,7 +164,7 @@
                             },
                             0: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding training reason. please try again later.',
+                                    text: 'something went wrong while adding media. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },

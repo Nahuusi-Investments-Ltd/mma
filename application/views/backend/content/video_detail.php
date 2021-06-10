@@ -1,9 +1,10 @@
-            <!-- dashboard -->
+            <!-- order view -->
             <?php $this->load->view('backend/partials/header'); ?>
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item active"><strong>Training Reasons</strong></a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo site_url('video'); ?>">Videos</a></li>
+                    <li class="breadcrumb-item active"><?php echo $video->title; ?></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -12,66 +13,60 @@
             <main class="c-main">
                 <div class="container-fluid">
                     <div class="fade-in">
-                        <!-- reasons -->
                         <div class="card">
-                            <div class="card-body">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#reasons-list" role="tab" aria-controls="reasons-list">
-                                            All Training Reasons
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#add-reason" role="tab" aria-controls="add-reason">
-                                            Add New Reason
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="reasons-list" role="tabpanel">
-                                        <br/>
-                                        <div class="table-responsive">
-                                            <table id="reasons" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th width="35%">Title</th>
-                                                        <th>Description</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h1>Edit Video Form</h1>
                                     </div>
-
-                                    <div class="tab-pane" id="add-reason" role="tabpanel">
-                                        <br/>
-                                        <form id="reason-form" name="reason-form" method="post" action="">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form id="video-form" name="video-form" method="post" action="">
+                                    <input type="hidden" name="id" value="<?php echo $video->id; ?>" />
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#detail" role="tab" aria-controls="detail">
+                                                Form Data
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="detail" role="tabpanel">
+                                            <br/>
                                             <!-- title -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="title" class="font-weight-bold">Title<span class="text-danger">*</span></label>
-                                                        <input class="form-control" name="title" type="text" required="" />
+                                                        <input class="form-control" name="title" type="text" required="" value="<?php echo $video->title; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <br/>
                                             <!-- description -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="description" class="font-weight-bold">Description<span class="text-danger">*</span></label>
-                                                        <textarea class="form-control" name="description" rows="5" required=""></textarea>
+                                                        <input class="form-control" name="link" type="text" required="" value="<?php echo $video->link; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <br/>
-                                            <button class="btn btn-block btn-dark" type="submit"><strong>Save</strong></button>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <button class="btn btn-block btn-dark" type="submit"><strong>Save</strong></button>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span class="btn btn-block btn-danger" onclick="delete_record();"><strong>Delete</strong></span>
+                                                </div>
+                                            </div>
                                             <br/>
-                                        </form>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -85,39 +80,19 @@
             </footer>
         </div>
         <?php $this->load->view('backend/partials/scripts'); ?>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
         <script type="text/javascript">
-            var reasons_table = null;
+             var quill;
 
             $(document).ready(function(){
-                reasons_table = $('#reasons').DataTable({
-                    ajax: {
-                        url: '<?php echo site_url('training/list'); ?>',
-                        dataSrc: "training_reasons"
-                    },
-                    columns: [
-                        {data: "title"},
-                        {data: "description"}
 
-                    ],
-                    createdRow: function (row, data, dataIndex) {
-                        $(row).attr('data-id', data.id);
-                    },
-                    pageLength: 100,
-                    stateSave: true,
-                });
-
-                $('#reasons tbody').on('click', 'tr', function () {
-                    window.location.href = window.location.href = '<?php echo site_url('training/detail'); ?>?id=' + $(this).data("id");
-                });
-
-                $("form[name='reason-form']").submit(function(e) {
+                $("form[name='video-form']").submit(function(e) {
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 
                     $.ajax({
-                        url: '<?php echo site_url('training/add'); ?>',
+                        url: '<?php echo site_url('video/save'); ?>',
                         type: "POST",
                         data: formData,
                         dataType: "json",
@@ -128,24 +103,20 @@
                             loading.out();
                         },
                         statusCode: {
-                            201: function(request, status, error){
+                            204: function(request, status, error){
                                 Swal.fire({
-                                    text: 'reason added successfully.',
+                                    text: 'video updated!',
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
                                     customClass: {
                                         confirmButton: "btn font-weight-bold btn-light-primary"
                                     }
-                                }).then(function(){
-                                    $('#reason-form').trigger("reset");
-
-                                    reasons_table.ajax.reload();
                                 });
                             },
                             400: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding training reason. please try again later.',
+                                    text: 'unable to save video. please try again later.',
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -156,7 +127,7 @@
                             },
                             500: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding training reason. please try again later.',
+                                    text: 'unable to save video. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -165,7 +136,7 @@
                             },
                             0: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding training reason. please try again later.',
+                                    text: 'unable to save video. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -181,6 +152,31 @@
                     e.preventDefault();
                 });
             });
+
+            function delete_record(){
+                Swal.fire({
+                    text: "Are you sure you want to delete: <?php echo $video->title; ?>?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true
+                }).then(function(result) {
+                    if (result.value) {
+                        // set user to delete
+                        var settings = {
+                            "url": "<?php echo site_url('video/delete'); ?>?id=<?php echo $video->id; ?>",
+                            "method": "DELETE"
+                        };
+
+                        var loading = new Loading();
+                        $.ajax(settings).done(function (response) {
+                            loading.out();
+                            window.location.href = '<?php echo site_url('video'); ?>';
+                        });
+                    }
+                });
+            }
         </script>
     </body>
 </html>
