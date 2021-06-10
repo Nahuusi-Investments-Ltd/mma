@@ -10,12 +10,12 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne<?php echo $key; ?>">
 							<?php echo $value->title; ?>
 						<i class="indicator icon_plus_alt2 pull-right"></i></a>
 					  </h4>
 						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
+						<div id="collapseOne<?php echo $key; ?>" class="panel-collapse collapse">
 							<div class="panel-body">
 								<?php echo $value->description; ?>
 							</div>

@@ -3,7 +3,7 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item active"><strong>Categories on Home Page</strong></a></li>
+                    <li class="breadcrumb-item active"><strong>Training Reasons</strong></a></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -12,41 +12,40 @@
             <main class="c-main">
                 <div class="container-fluid">
                     <div class="fade-in">
-                        <!-- categories -->
+                        <!-- reasons -->
                         <div class="card">
                             <div class="card-body">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#categories-list" role="tab" aria-controls="categories-list">
-                                            All Categories
+                                        <a class="nav-link active" data-toggle="tab" href="#reasons-list" role="tab" aria-controls="reasons-list">
+                                            All Training Reasons
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#add-category" role="tab" aria-controls="add-category">
-                                            Add New Category
+                                        <a class="nav-link" data-toggle="tab" href="#add-reason" role="tab" aria-controls="add-reason">
+                                            Add New Reason
                                         </a>
                                     </li>
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="categories-list" role="tabpanel">
+                                    <div class="tab-pane active" id="reasons-list" role="tabpanel">
                                         <br/>
                                         <div class="table-responsive">
-                                            <table id="categories" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
+                                            <table id="reasons" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
                                                 <thead class="thead-dark">
                                                     <tr>
-                                                        <th>Title</th>
+                                                        <th width="35%">Title</th>
                                                         <th>Description</th>
-                                                        <th width="30%">Image</th>
                                                     </tr>
                                                 </thead>
                                             </table>
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane" id="add-category" role="tabpanel">
+                                    <div class="tab-pane" id="add-reason" role="tabpanel">
                                         <br/>
-                                        <form id="category-form" name="category-form" method="post" action="" enctype="multipart/form-data">
+                                        <form id="reason-form" name="reason-form" method="post" action="">
                                             <!-- title -->
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -57,23 +56,14 @@
                                                 </div>
                                             </div>
 
-                                            <!-- image -->
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="link" class="font-weight-bold">Category Image <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span><span class="text-danger">*</span></label>
-                                                        <input class="form-control-file" name="link" type="file" accept=".jpg,.png" required="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <br/>
                                             <!-- description -->
                                             <input type="hidden" name="description" id="content_description" />
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <div id="editor" style="height: 400px;"></div>
+                                                        <label for="description" class="font-weight-bold">Description<span class="text-danger">*</span></label>
+                                                        <textarea class="form-control" name="description" rows="5" required=""></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,26 +89,17 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <script type="text/javascript">
-            var categories_table = null;
+            var reasons_table = null;
 
             $(document).ready(function(){
-                // quill editor
-                var quill = new Quill('#editor', {
-                    modules: {
-                        toolbar: quill_toolbar_options
-                    },
-                    theme: 'snow'
-                });
-
-                categories_table = $('#categories').DataTable({
+                reasons_table = $('#reasons').DataTable({
                     ajax: {
-                        url: '<?php echo site_url('category/list'); ?>',
-                        dataSrc: "categories"
+                        url: '<?php echo site_url('training/list'); ?>',
+                        dataSrc: "training_reasons"
                     },
                     columns: [
                         {data: "title"},
-                        {data: "description"},
-                        {data: "link"}
+                        {data: "description"}
 
                     ],
                     createdRow: function (row, data, dataIndex) {
@@ -128,19 +109,16 @@
                     stateSave: true,
                 });
 
-                $('#categories tbody').on('click', 'tr', function () {
-                    window.location.href = window.location.href = '<?php echo site_url('category/detail'); ?>?id=' + $(this).data("id");
+                $('#reasons tbody').on('click', 'tr', function () {
+                    window.location.href = window.location.href = '<?php echo site_url('training/detail'); ?>?id=' + $(this).data("id");
                 });
 
-                $("form[name='category-form']").submit(function(e) {
-                    var html = quill.root.innerHTML;
-                    $('#content_description').val(html);
-                    
+                $("form[name='reason-form']").submit(function(e) {
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 
                     $.ajax({
-                        url: '<?php echo site_url('category/add'); ?>',
+                        url: '<?php echo site_url('training/add'); ?>',
                         type: "POST",
                         data: formData,
                         dataType: "json",
@@ -153,7 +131,7 @@
                         statusCode: {
                             201: function(request, status, error){
                                 Swal.fire({
-                                    text: 'category added successfully.',
+                                    text: 'reason added successfully.',
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -161,15 +139,14 @@
                                         confirmButton: "btn font-weight-bold btn-light-primary"
                                     }
                                 }).then(function(){
-                                    $('#category-form').trigger("reset");
-                                    $('#editor').html('');
+                                    $('#reason-form').trigger("reset");
 
-                                    categories_table.ajax.reload();
+                                    reasons_table.ajax.reload();
                                 });
                             },
                             400: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding category. please try again later.',
+                                    text: 'something went wrong while adding training reason. please try again later.',
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -180,7 +157,7 @@
                             },
                             500: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding category. please try again later.',
+                                    text: 'something went wrong while adding training reason. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -189,7 +166,7 @@
                             },
                             0: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding category. please try again later.',
+                                    text: 'something went wrong while adding training reason. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },

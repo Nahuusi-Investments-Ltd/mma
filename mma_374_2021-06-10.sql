@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.30)
 # Database: mma_374
-# Generation Time: 2021-06-05 09:56:20 +0000
+# Generation Time: 2021-06-10 07:55:29 +0000
 # ************************************************************
 
 
@@ -69,9 +69,9 @@ LOCK TABLES `tbl_category` WRITE;
 
 INSERT INTO `tbl_category` (`id`, `title`, `description`, `link`, `date_created`, `updated_on`)
 VALUES
-	(1,'Adult Classes','Our Adult Classes are all inclusive, from novices to experts. All classes will challenge you no matter your skill level.','adultClasses.png','2021-06-01 19:23:26','2021-06-01 19:23:26'),
+	(1,'Adult Classes','<p>Our Adult Classes are all inclusive, from novices to experts. All classes will challenge you no matter your skill level.</p>','67dc04d7c59480257d028e74795181e8.png','2021-06-01 19:23:26','2021-06-09 17:28:47'),
 	(2,'Youth classes','Youth make up and important part of our 374 family. As with all classes and levels of practice, youth will be challenged to push themselves and achieve more than they thought capable!','youthClasses.png','2021-06-01 19:23:26','2021-06-01 19:23:26'),
-	(3,'Kids Classes','Our children train in Self Defense Jiu Jitsu and are taught practical techniques in a fun and welcoming environment. Learning Self Defense skills allows children to feel confident in all situations. Discipline and respect are taught (and shown) and are also a large aspect in our children’s programming. These, along with Self Defense, benefit children far beyond the doors of our facility, extending to home, school, other extra curricular actives and personal interactions.','kidsClasses.png','2021-06-01 19:23:26','2021-06-01 19:23:26');
+	(3,'Kids Classes','<p>Our children train in Self Defense Jiu Jitsu and are taught practical techniques in a fun and welcoming environment. Learning Self Defense skills allows children to feel confident in all situations. Discipline and respect are taught (and shown) and are also a large aspect in our children’s programming. These, along with Self Defense, benefit children far beyond the doors of our facility, extending to home, school, other extra curricular actives and personal interactions.</p>','kidsClasses.png','2021-06-01 19:23:26','2021-06-10 09:30:14');
 
 /*!40000 ALTER TABLE `tbl_category` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -218,21 +218,6 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table tbl_subscriptions
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `tbl_subscriptions`;
-
-CREATE TABLE `tbl_subscriptions` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `email` text,
-  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
 # Dump of table tbl_slides
 # ------------------------------------------------------------
 
@@ -255,10 +240,25 @@ INSERT INTO `tbl_slides` (`id`, `title`, `description`, `link`, `created_on`, `u
 VALUES
 	(1,'Keep On Going','#KEEPONGOING / #374MMA / #LargestMMAGymInHalifax','slide_1.jpg','2021-06-01 18:59:39','2021-06-01 18:59:39'),
 	(2,'We offer multiple disciplines','#Classes / #Adults / #Youths / Kids','slide_2.jpg','2021-06-01 18:59:39','2021-06-01 18:59:39'),
-	(3,'Kids Self Defense Jiu Jitsu','#Confidence / #Discipline / #Respect','slide_3.jpg','2021-06-01 18:59:39','2021-06-01 18:59:39');
+	(3,'Kids Self Defense Jiu Jitsu','#Confidence / #Discipline / #Respect','slide_3.jpg','2021-06-01 18:59:39','2021-06-10 06:58:00');
 
 /*!40000 ALTER TABLE `tbl_slides` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table tbl_subscriptions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tbl_subscriptions`;
+
+CREATE TABLE `tbl_subscriptions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `email` text,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 # Dump of table tbl_team
@@ -281,9 +281,9 @@ LOCK TABLES `tbl_team` WRITE;
 
 INSERT INTO `tbl_team` (`id`, `name`, `title`, `photo`, `date_created`, `updated_on`)
 VALUES
-	(1,'Radafy \"Rad\" Ranaivo','Owner & Head Coach','radafyRadRanaivo.jpg','2021-06-01 20:23:39','2021-06-01 20:23:58'),
+	(1,'Radafy Rad Ranaivo','Owner & Head Coach','radafyRadRanaivo.jpg','2021-06-01 20:23:39','2021-06-10 09:57:19'),
 	(2,'Josh Barkhouse','title coming soon','joshBarkhouse.jpg','2021-06-01 20:25:44','2021-06-01 20:25:44'),
-	(3,'Jonas Klippenstein','title coming soon','jonasKlippenstein.jpg','2021-06-01 20:26:24','2021-06-01 20:26:24');
+	(3,'Jonas Klippenstein','title coming soon','b07a9359e82868988b9cf56c49c52aab.jpeg','2021-06-01 20:26:24','2021-06-10 08:49:34');
 
 /*!40000 ALTER TABLE `tbl_team` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -378,6 +378,32 @@ VALUES
 	(3,'Professional Mixed Martial Arts Facility','We have 4,500 square feet suited for high quality training, including 2 large matted areas, numerous heavy bags, MMA training equipment and a weight room.','2021-06-01 19:39:02','2021-06-01 19:39:02');
 
 /*!40000 ALTER TABLE `tbl_train_reasons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tbl_user
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tbl_user`;
+
+CREATE TABLE `tbl_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `email` text,
+  `password` text,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `tbl_user` WRITE;
+/*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
+
+INSERT INTO `tbl_user` (`id`, `name`, `email`, `password`, `date_created`, `updated_on`)
+VALUES
+	(1,'MMA Admin','admin@mma.com','7a2d9e81009161646c98049566e5c2b2e55e15e1','2021-06-09 09:37:27','2021-06-09 09:37:27');
+
+/*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

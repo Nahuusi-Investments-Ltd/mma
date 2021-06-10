@@ -3,7 +3,7 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item active"><strong>Categories on Home Page</strong></a></li>
+                    <li class="breadcrumb-item active"><strong>Clients Testimonies</strong></a></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -12,47 +12,47 @@
             <main class="c-main">
                 <div class="container-fluid">
                     <div class="fade-in">
-                        <!-- categories -->
+                        <!-- testimonies -->
                         <div class="card">
                             <div class="card-body">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#categories-list" role="tab" aria-controls="categories-list">
-                                            All Categories
+                                        <a class="nav-link active" data-toggle="tab" href="#testimonies-list" role="tab" aria-controls="testimonies-list">
+                                            All Clients Testimonies
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#add-category" role="tab" aria-controls="add-category">
-                                            Add New Category
+                                        <a class="nav-link" data-toggle="tab" href="#add-testimony" role="tab" aria-controls="add-testimony">
+                                            Add New Testimony
                                         </a>
                                     </li>
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="categories-list" role="tabpanel">
+                                    <div class="tab-pane active" id="testimonies-list" role="tabpanel">
                                         <br/>
                                         <div class="table-responsive">
-                                            <table id="categories" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
+                                            <table id="testimonies" class="table table-separate table-head-custom table-checkable table-hover table-striped" width="100%">
                                                 <thead class="thead-dark">
                                                     <tr>
-                                                        <th>Title</th>
-                                                        <th>Description</th>
-                                                        <th width="30%">Image</th>
+                                                        <th width="10%">Avatar</th>
+                                                        <th width="30%">Client Name</th>
+                                                        <th>Message</th>
                                                     </tr>
                                                 </thead>
                                             </table>
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane" id="add-category" role="tabpanel">
+                                    <div class="tab-pane" id="add-testimony" role="tabpanel">
                                         <br/>
-                                        <form id="category-form" name="category-form" method="post" action="" enctype="multipart/form-data">
-                                            <!-- title -->
+                                        <form id="testimony-form" name="testimony-form" method="post" action="" enctype="multipart/form-data">
+                                            <!-- name -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="title" class="font-weight-bold">Title<span class="text-danger">*</span></label>
-                                                        <input class="form-control" name="title" type="text" required="" />
+                                                        <label for="name" class="font-weight-bold">Client Name<span class="text-danger">*</span></label>
+                                                        <input class="form-control" name="name" type="text" required="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -61,19 +61,18 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="link" class="font-weight-bold">Category Image <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span><span class="text-danger">*</span></label>
+                                                        <label for="link" class="font-weight-bold">Client Avatar <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span><span class="text-danger">*</span></label>
                                                         <input class="form-control-file" name="link" type="file" accept=".jpg,.png" required="" />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <br/>
-                                            <!-- description -->
-                                            <input type="hidden" name="description" id="content_description" />
+                                            <!-- nessage -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <div id="editor" style="height: 400px;"></div>
+                                                        <label for="name" class="font-weight-bold">Client Message<span class="text-danger">*</span></label>
+                                                        <textarea class="form-control" name="message" rows="5" required=""></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,27 +98,18 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <script type="text/javascript">
-            var categories_table = null;
+            var testimonies_table = null;
 
             $(document).ready(function(){
-                // quill editor
-                var quill = new Quill('#editor', {
-                    modules: {
-                        toolbar: quill_toolbar_options
-                    },
-                    theme: 'snow'
-                });
-
-                categories_table = $('#categories').DataTable({
+                testimonies_table = $('#testimonies').DataTable({
                     ajax: {
-                        url: '<?php echo site_url('category/list'); ?>',
-                        dataSrc: "categories"
+                        url: '<?php echo site_url('feedback/list'); ?>',
+                        dataSrc: "testimonies"
                     },
                     columns: [
-                        {data: "title"},
-                        {data: "description"},
-                        {data: "link"}
-
+                        {data: "link"},
+                        {data: "name"},
+                        {data: "message"}
                     ],
                     createdRow: function (row, data, dataIndex) {
                         $(row).attr('data-id', data.id);
@@ -128,19 +118,16 @@
                     stateSave: true,
                 });
 
-                $('#categories tbody').on('click', 'tr', function () {
-                    window.location.href = window.location.href = '<?php echo site_url('category/detail'); ?>?id=' + $(this).data("id");
+                $('#testimonies tbody').on('click', 'tr', function () {
+                    window.location.href = window.location.href = '<?php echo site_url('feedback/detail'); ?>?id=' + $(this).data("id");
                 });
 
-                $("form[name='category-form']").submit(function(e) {
-                    var html = quill.root.innerHTML;
-                    $('#content_description').val(html);
-                    
+                $("form[name='testimony-form']").submit(function(e) {
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 
                     $.ajax({
-                        url: '<?php echo site_url('category/add'); ?>',
+                        url: '<?php echo site_url('feedback/add'); ?>',
                         type: "POST",
                         data: formData,
                         dataType: "json",
@@ -153,7 +140,7 @@
                         statusCode: {
                             201: function(request, status, error){
                                 Swal.fire({
-                                    text: 'category added successfully.',
+                                    text: 'client testimony added successfully.',
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -161,15 +148,14 @@
                                         confirmButton: "btn font-weight-bold btn-light-primary"
                                     }
                                 }).then(function(){
-                                    $('#category-form').trigger("reset");
-                                    $('#editor').html('');
+                                    $('#testimony-form').trigger("reset");
 
-                                    categories_table.ajax.reload();
+                                    testimonies_table.ajax.reload();
                                 });
                             },
                             400: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding category. please try again later.',
+                                    text: 'something went wrong while adding client testimony. please try again later.',
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -180,7 +166,7 @@
                             },
                             500: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding category. please try again later.',
+                                    text: 'something went wrong while adding client testimony. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -189,7 +175,7 @@
                             },
                             0: function(request, status, error){
                                 Swal.fire({
-                                    text: 'something went wrong while adding category. please try again later.',
+                                    text: 'something went wrong while adding client testimony. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },

@@ -62,14 +62,63 @@
             <ul class="c-sidebar-nav">
                 <li class="c-sidebar-nav-title">Home Page</li>
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" href="<?php echo site_url('admin'); ?>">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('category'); ?>">
                         <svg class="c-sidebar-nav-icon">
                             <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-list'); ?>"></use>
                         </svg>
                         Categories
                     </a>
                 </li>
-                <li class="c-sidebar-nav-title">Administration</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('slide'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-file'); ?>"></use>
+                        </svg>
+                        Slides
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('training'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-building'); ?>"></use>
+                        </svg>
+                        Training Reasons
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('feedback'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-people'); ?>"></use>
+                        </svg>
+                        Client Feedback
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-title">About Page</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('admin/team'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-briefcase'); ?>"></use>
+                        </svg>
+                        Team
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('partner'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-layers'); ?>"></use>
+                        </svg>
+                        Partners
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-title">Classes Page</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('mclass'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-library-add'); ?>"></use>
+                        </svg>
+                        Classes
+                    </a>
+                </li>
             </ul>
             <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
         </div>

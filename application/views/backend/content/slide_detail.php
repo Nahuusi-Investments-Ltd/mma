@@ -3,8 +3,8 @@
             <div class="c-subheader justify-content-between px-3">
                 <!-- Breadcrumb-->
                 <ol class="breadcrumb border-0 m-0">
-                    <li class="breadcrumb-item"><a href="<?php echo site_url('admin'); ?>">Categories</a></li>
-                    <li class="breadcrumb-item active"><?php echo $category->title; ?></li>
+                    <li class="breadcrumb-item"><a href="<?php echo site_url('slide'); ?>">Slides</a></li>
+                    <li class="breadcrumb-item active"><?php echo $slide->title; ?></li>
                     <!-- Breadcrumb Menu-->
                 </ol>
             </div>
@@ -17,14 +17,14 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h1>Edit Category Form</h1>
+                                        <h1>Edit Slide Form</h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form id="category-form" name="category-form" method="post" action="" enctype="multipart/form-data">
-                                    <input type="hidden" name="id" value="<?php echo $category->id; ?>" />
-                                    <input type="hidden" name="category_link" value="<?php echo $category->link; ?>" />
+                                <form id="slide-form" name="slide-form" method="post" action="" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<?php echo $slide->id; ?>" />
+                                    <input type="hidden" name="slide_link" value="<?php echo $slide->link; ?>" />
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" href="#detail" role="tab" aria-controls="detail">
@@ -33,7 +33,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-toggle="tab" href="#preview" role="tab" aria-controls="preview">
-                                                Image Preview
+                                                Slide Preview
                                             </a>
                                         </li>
                                     </ul>
@@ -45,7 +45,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="title" class="font-weight-bold">Title<span class="text-danger">*</span></label>
-                                                        <input class="form-control" name="title" type="text" required="" value="<?php echo $category->title; ?>" />
+                                                        <input class="form-control" name="title" type="text" required="" value="<?php echo $slide->title; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -54,19 +54,17 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="link" class="font-weight-bold">Category Image <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span></label>
+                                                        <label for="link" class="font-weight-bold">Slide Image <span class="text-muted font-weight-bold">(JPEG,PNG Only)</span></label>
                                                         <input class="form-control-file" name="link" type="file" accept=".jpg,.png" />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <br/>
-                                            <!-- description -->
-                                            <input type="hidden" name="description" id="content_description" />
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <div id="editor" style="height: 400px;"><?php echo $category->description; ?></div>
+                                                        <label for="description" class="font-weight-bold">Description<span class="text-danger">*</span></label>
+                                                        <input class="form-control" name="description" type="text" required="" value="<?php echo $slide->description; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,26 +109,15 @@
              var quill;
 
             $(document).ready(function(){
-                // quill editor
-                quill = new Quill('#editor', {
-                    modules: {
-                        toolbar: quill_toolbar_options
-                    },
-                    theme: 'snow'
-                });
-
-                var image_link = '<?php echo base_url('uploads/category'); ?>/<?php echo $category->link; ?>';
+                var image_link = '<?php echo base_url('uploads/slides'); ?>/<?php echo $slide->link; ?>';
                 PDFObject.embed(image_link, "#document-preview");
 
-                $("form[name='category-form']").submit(function(e) {
-                    var html = quill.root.innerHTML;
-                    $('#content_description').val(html);
-
+                $("form[name='slide-form']").submit(function(e) {
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 
                     $.ajax({
-                        url: '<?php echo site_url('category/save'); ?>',
+                        url: '<?php echo site_url('slide/save'); ?>',
                         type: "POST",
                         data: formData,
                         dataType: "json",
@@ -143,7 +130,7 @@
                         statusCode: {
                             204: function(request, status, error){
                                 Swal.fire({
-                                    text: 'category updated!',
+                                    text: 'slide updated!',
                                     icon: "success",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -154,7 +141,7 @@
                             },
                             400: function(request, status, error){
                                 Swal.fire({
-                                    text: 'unable to save category. please try again later.',
+                                    text: 'unable to save slide. please try again later.',
                                     icon: "error",
                                     buttonsStyling: false,
                                     confirmButtonText: "OK",
@@ -165,7 +152,7 @@
                             },
                             500: function(request, status, error){
                                 Swal.fire({
-                                    text: 'unable to save category. please try again later.',
+                                    text: 'unable to save slide. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -174,7 +161,7 @@
                             },
                             0: function(request, status, error){
                                 Swal.fire({
-                                    text: 'unable to save category. please try again later.',
+                                    text: 'unable to save slide. please try again later.',
                                     customClass: {
                                         confirmButton: 'btn btn-danger'
                                     },
@@ -193,7 +180,7 @@
 
             function delete_record(){
                 Swal.fire({
-                    text: "Are you sure you want to delete: <?php echo $category->title; ?>?",
+                    text: "Are you sure you want to delete: <?php echo $slide->title; ?>?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Delete",
@@ -203,14 +190,14 @@
                     if (result.value) {
                         // set user to delete
                         var settings = {
-                            "url": "<?php echo site_url('category/delete'); ?>?id=<?php echo $category->id; ?>",
+                            "url": "<?php echo site_url('slide/delete'); ?>?id=<?php echo $slide->id; ?>",
                             "method": "DELETE"
                         };
 
                         var loading = new Loading();
                         $.ajax(settings).done(function (response) {
                             loading.out();
-                            window.location.href = '<?php echo site_url('category'); ?>';
+                            window.location.href = '<?php echo site_url('slide'); ?>';
                         });
                     }
                 });
