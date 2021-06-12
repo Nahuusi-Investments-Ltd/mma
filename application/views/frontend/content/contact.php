@@ -41,18 +41,18 @@
 					</div>
 					<div>
 						<div id="message-contact"></div>
-						<form method="post" action="assets/processor/contact.php" id="contactform">
+						<form id="contactform" name="contactform">
 							<div class="row">
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Full name</label>
-										<input type="text" class="form-control styled" id="fullname" name="fullname" placeholder="Radafy Ranaivo">
+										<input type="text" class="form-control styled" id="fullname" name="fullname" placeholder="Radafy Ranaivo" required="">
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Email:</label>
-										<input type="email" id="email_contact" name="email_contact" class="form-control styled" placeholder="info@374mma.com">
+										<input type="email" id="email_contact" name="email_contact" class="form-control styled" placeholder="info@374mma.com" required="">
 									</div>
 								</div>
 							</div>
@@ -60,14 +60,14 @@
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Phone number:</label>
-										<input type="text" id="phone_contact" name="phone_contact" class="form-control styled" placeholder="+1 (902) 200-4690">
+										<input type="text" id="phone_contact" name="phone_contact" class="form-control styled" placeholder="+1 (902) 200-4690" required="">
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Topic of Contact:</label>
 										<div class="styled-select">
-											<select class="form-control" name="plan" id="plan">
+											<select class="form-control" name="plan" id="plan" required="">
 												<option value="">Select</option>
 												<option value="About My Membership at 374 MMA">About My Membership at 374 MMA</option>
 												<option value="About Enrolment To 374 MMA">About Enrolment To 374 MMA </option>
@@ -84,7 +84,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label>Your message:</label>
-										<textarea rows="5" id="message_contact" name="message_contact" class="form-control styled" style="height:100px;" placeholder="Write your message here ..."></textarea>
+										<textarea rows="5" id="message_contact" name="message_contact" class="form-control styled" style="height:100px;" placeholder="Write your message here ..." required=""></textarea>
 									</div>
 								</div>
 							</div>
@@ -92,7 +92,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Are you human? 3 + 7 + 4 =</label>
-										<input type="text" id="verify_contact" class=" form-control styled" placeholder=" 3 + 1 =">
+										<input type="text" id="verify_contact" class=" form-control styled" placeholder=" 3 + 1 =" required="">
 									</div>
 									<p><input type="submit" value="Submit" class="btn_1" id="submit-contact"></p>
 								</div>
@@ -159,4 +159,66 @@
 		<?php $this->load->view('frontend/partials/search'); ?>
 		<?php $this->load->view('frontend/partials/scripts'); ?>
 	</body>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("form[name='contactform']").submit(function(e) {
+	        	var loading = new Loading();
+	            var formData = new FormData($(this)[0]);
+            
+	            $.ajax({
+	                url: '<?php echo site_url('home/contact_user'); ?>',
+	                type: "POST",
+	                data: formData,
+	                dataType: "json",
+	                success: function(response) {
+	                	loading.out();
+
+	                	if(response.success){
+	                		$('#contactform').trigger("reset");
+
+	                		Swal.fire({
+				                text: response.message,
+				                icon: "success",
+				                buttonsStyling: false,
+				                confirmButtonText: "OK",
+		                        customClass: {
+		    						confirmButton: "btn font-weight-bold btn-light-primary"
+		    					}
+				            });
+	                	}
+	                	else{
+	                		Swal.fire({
+				                text: response.message,
+				                icon: "error",
+				                buttonsStyling: false,
+				                confirmButtonText: "OK",
+		                        customClass: {
+		    						confirmButton: "btn font-weight-bold btn-light-primary"
+		    					}
+				            });
+	                	}
+	                },
+	                error: function(xhr, status, error) {
+	                    var json = $.parseJSON(xhr.responseText);
+
+	                    Swal.fire({
+			                text: json.message,
+			                icon: "error",
+			                buttonsStyling: false,
+			                confirmButtonText: "OK",
+	                        customClass: {
+	    						confirmButton: "btn font-weight-bold btn-light-primary"
+	    					}
+			            });
+	                },
+	                cache: false,
+	                contentType: false,
+	                processData: false
+	            });
+
+	            e.preventDefault();
+	        });
+		});
+	</script>
 </html>

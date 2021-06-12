@@ -16,7 +16,7 @@
 		<!-- End Preload -->
 
 		<!-- Header -->
-		<?php include('includes/header.php');?>
+		<?php include('includes/header');?>
 		<!-- End Header -->
 
 		<!-- SubHeader =============================================== -->

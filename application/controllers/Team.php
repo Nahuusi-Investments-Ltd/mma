@@ -40,6 +40,9 @@ class Team extends MY_Controller {
                 'id' => $data->id,
                 'name' => $data->name,
                 'title' => $data->title,
+                'email' => $data->email,
+                'phone' => $data->phone,
+                'address' => $data->address,
                 'photo' => '<img class="img-thumbnail" src="'.$image_url.'" alt="'.$data->name.'">'
             ));
         }
@@ -60,6 +63,11 @@ class Team extends MY_Controller {
         $data = array(
             'name' => $this->input->post('name'),
             'title' => $this->input->post('title'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'address' => $this->input->post('address'),
+            'bio' => $this->input->post('bio'),
+            'classes' => $this->input->post('classes'),
             'photo' => ''
         );
 
@@ -105,7 +113,12 @@ class Team extends MY_Controller {
 
         $data = array(
             'name' => $this->input->post('name'),
-            'title' => $this->input->post('title')
+            'title' => $this->input->post('title'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'address' => $this->input->post('address'),
+            'bio' => $this->input->post('bio'),
+            'classes' => $this->input->post('classes')
         );
 
         $condition = array('id' => $this->input->post('id'));

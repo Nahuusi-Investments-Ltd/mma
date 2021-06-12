@@ -60,6 +60,36 @@
                                                 </div>
                                             </div>
 
+                                            <!-- email -->
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="email" class="font-weight-bold">Email<span class="text-danger">*</span></label>
+                                                        <input class="form-control" name="email" type="email" required="" value="<?php echo $member->email; ?>"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- phone -->
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="phone" class="font-weight-bold">Phone<span class="text-danger">*</span></label>
+                                                        <input class="form-control" name="phone" type="text" required="" value="<?php echo $member->phone; ?>"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- address -->
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="address" class="font-weight-bold">Address<span class="text-danger">*</span></label>
+                                                        <textarea class="form-control" name="address" required="" rows="5"><?php echo $member->address; ?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <!-- image -->
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -69,7 +99,31 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <br/>
+                                            <!-- bio -->
+                                            <input type="hidden" name="bio" id="content_bio" />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="bio" class="font-weight-bold">Member BIO<span class="text-danger">*</span></label>
+                                                        <div id="bio" style="height: 400px;"><?php echo $member->bio; ?></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br/>
+                                            <!-- classes -->
+                                            <input type="hidden" name="classes" id="content_classes" />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="classes" class="font-weight-bold">Member Classes<span class="text-danger">*</span></label>
+                                                        <div id="classes" style="height: 400px;"><?php echo $member->classes; ?></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <button class="btn btn-block btn-dark" type="submit"><strong>Save</strong></button>
@@ -113,7 +167,29 @@
                 var image_link = '<?php echo base_url('uploads/team'); ?>/<?php echo $member->photo; ?>';
                 PDFObject.embed(image_link, "#document-preview");
 
+                // quill bio
+                var quill_bio = new Quill('#bio', {
+                    modules: {
+                        toolbar: quill_toolbar_options
+                    },
+                    theme: 'snow'
+                });
+
+                // quill classes
+                var quill_classes = new Quill('#classes', {
+                    modules: {
+                        toolbar: quill_toolbar_options
+                    },
+                    theme: 'snow'
+                });
+
                 $("form[name='member-form']").submit(function(e) {
+                    var html_bio = quill_bio.root.innerHTML;
+                    $('#content_bio').val(html_bio);
+
+                    var html_classes = quill_classes.root.innerHTML;
+                    $('#content_classes').val(html_classes);
+                    
                     var formData = new FormData($(this)[0]);
                     var loading = new Loading();
 

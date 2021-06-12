@@ -35,14 +35,12 @@
 				  	<?php $photo_url = base_url('uploads/photo').'/'.$media->link; ?>
 					<div class="col-sm-6 col-md-4">
 					    <div class="thumbnail">
-					    	<a href="#">
-						      	<img src="<?php echo $photo_url; ?>" alt="<?php echo $media->title; ?>">
-						      	<div class="caption">
-						        	<h4>
-						    			<?php echo $media->title; ?>
-						    		</h4>
-						      	</div>
-					      	</a>
+					      	<img src="<?php echo $photo_url; ?>" alt="<?php echo $media->title; ?>">
+					      	<div class="caption">
+					        	<h4>
+					    			<?php echo $media->title; ?>
+					    		</h4>
+					      	</div>
 					    </div>
 					</div>
 				  	</div>

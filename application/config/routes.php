@@ -53,6 +53,7 @@ $route['default_controller'] = 'home';
 
 $route['about'] = 'home/about';
 $route['team'] = 'home/team';
+$route['team/member'] = 'home/team_member';
 $route['partners'] = 'home/partners';
 $route['classes'] = 'home/classes';
 $route['faq'] = 'home/faq';
@@ -72,6 +73,7 @@ $route['admin/login'] = 'login';
 $route['admin/user/login'] = 'login/process_login';
 $route['admin/team'] = 'team';
 $route['admin/faq'] = 'faq';
+$route['admin/schedule'] = 'schedule';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

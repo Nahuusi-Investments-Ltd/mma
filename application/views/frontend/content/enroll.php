@@ -162,7 +162,7 @@
 									<div class="col-sm-12">
 										<div class="form-group">
 											<label>
-												<input type="checkbox" name="newsletter" id="newsletter"> 
+												<input type="checkbox" name="newsletter" id="newsletter" value="Yes"> 
 													Add me to 374 MMA newsletter. WE WILL NOT SPAM your email.
 											</label>
 											<br>

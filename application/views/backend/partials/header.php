@@ -153,6 +153,15 @@
                         Videos
                     </a>
                 </li>
+                <li class="c-sidebar-nav-title">Schedule</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('admin/schedule'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-calendar'); ?>"></use>
+                        </svg>
+                        Time Table
+                    </a>
+                </li>
                 <li class="c-sidebar-nav-title">Subscriptions</li>
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="<?php echo site_url('newsletter'); ?>">

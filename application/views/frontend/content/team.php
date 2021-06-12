@@ -41,7 +41,7 @@
 					<?php $member_photo = base_url('uploads/team').'/'.$value->photo; ?>
 					<div class="col-sm-6 col-md-4">
 					    <div class="thumbnail">
-					    	<a href="#">
+					    	<a href="<?php echo site_url('team/member'); ?>?id=<?php echo $value->id; ?>">
 						      	<img src="<?php echo $member_photo; ?>" alt="Radafy Rad Ranaivo">
 						      	<div class="caption">
 						        	<h4>

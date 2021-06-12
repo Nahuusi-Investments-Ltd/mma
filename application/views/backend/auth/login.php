@@ -85,7 +85,7 @@
                         data: formData,
                         dataType: "json",
                         success: function(response) {
-                            window.location.href = "<?php echo site_url('admin'); ?>";
+                            window.location.href = "<?php echo site_url('category'); ?>";
                         },
                         error: function(xhr, status, error) {
                             loading.out();
