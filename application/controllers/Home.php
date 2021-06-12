@@ -178,7 +178,7 @@ class Home extends CI_Controller {
         $this->email->from($_ENV['SMTP_USER'], $_ENV['SITE_TITLE']);
         $this->email->subject($subject);
         $this->email->message($message);
-        $this->email->to('simeon.obwogo79@gmail.com');
+        $this->email->to($_ENV['SMTP_USER']);
 
         if($this->email->send())
         	die(json_encode(array(
@@ -224,7 +224,7 @@ class Home extends CI_Controller {
         $this->email->from($_ENV['SMTP_USER'], $_ENV['SITE_TITLE']);
         $this->email->subject($subject);
         $this->email->message($message);
-        $this->email->to('simeon.obwogo79@gmail.com');
+        $this->email->to($_ENV['SMTP_USER']);
 
         if($this->email->send())
         	die(json_encode(array(
