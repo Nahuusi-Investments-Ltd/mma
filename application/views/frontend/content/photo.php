@@ -33,7 +33,7 @@
 				<div class="row">
 					<?php foreach($media->result() as $media) { ?>
 				  	<?php $photo_url = base_url('uploads/photo').'/'.$media->link; ?>
-					<div class="col-sm-6 col-md-4">
+					<div class="col-md-4">
 					    <div class="thumbnail">
 					      	<img src="<?php echo $photo_url; ?>" alt="<?php echo $media->title; ?>">
 					      	<div class="caption">
@@ -43,9 +43,8 @@
 					      	</div>
 					    </div>
 					</div>
-				  	</div>
-				  	<?php } ?>
-				</div>
+					<?php } ?>
+			  	</div>
 			</div>
 		</div>
 		<!-- End container -->

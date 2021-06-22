@@ -36,5 +36,10 @@ class Data_model extends CI_Model {
         $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         return substr(str_shuffle($permitted_chars), 0, 10);
     }
+
+    function get_password(){
+        $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwzyz';
+        return substr(str_shuffle($permitted_chars), 0, 16);
+    }
 }
 ?>

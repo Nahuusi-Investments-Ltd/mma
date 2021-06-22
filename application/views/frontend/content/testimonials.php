@@ -78,7 +78,7 @@
 	        						</p>
 				            		<span itemprop="author" itemscope itemtype="http://schema.org/Person">
 						            <small>
-						              	<span itemprop="name">-- Bob </span>
+						              	<span itemprop="name">-- <?php echo $testimony->name; ?> </span>
 							            </span><!--/author schema -->
 			              				<span class="pull-right">
 						              	<span class="reviewRating" itemscope itemtype="http://schema.org/Rating">

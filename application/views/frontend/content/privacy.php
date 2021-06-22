@@ -15,9 +15,7 @@
 		</div>
 		<!-- End Preload -->
 
-		<!-- Header -->
-		<?php include('includes/header');?>
-		<!-- End Header -->
+		<?php $this->load->view('frontend/partials/header'); ?>
 
 		<!-- SubHeader =============================================== -->
 		<section class="parallax_window_in" data-parallax="scroll" data-image-src="<?php echo base_url('assets/img/sub_header_privacy.jpg'); ?>" data-natural-width="1400" data-natural-height="470">
@@ -40,123 +38,8 @@
 								Privacy Policy 
 								<span>at 374 MMA</span>
 							</h2>
-							<p>
-								At 374 MMA we are privileged each and every day to help members to achieve their goals. We understand the need to protect personal information provided to us and take this role very seriously. Our commitment to protecting the privacy and confidentiality of our members’ personal information is addressed in this privacy policy.
-								<br>
-								We want you to understand why we collect your personal information, how the confidentiality of this information is protected and how you can find out what information concerning you is recorded. This policy applies to all 374 MMA family.
-							</p>
-
-							<h4>
-								<b>
-									Accountability 
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Personal Information
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Aggregate Data
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Photographs
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Contacting Us 
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Surveys 
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Video Surveillance
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Identifying Purposes 
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Telecommunications
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Consent
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									Third Party Disclosure
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<h4>
-								<b>
-									In-Club Wireless Access 
-								</b>
-							</h4>
-							<p> 
-								Content to be updated ...
-							</p>
-
-							<br>
-							<br>
-
+							
+							<?php echo $privacy->policy; ?>
 						</div>
 					</div>
 					<!-- Edn row -->

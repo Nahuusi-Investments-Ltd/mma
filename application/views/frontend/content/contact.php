@@ -41,7 +41,7 @@
 					</div>
 					<div>
 						<div id="message-contact"></div>
-						<form id="contactform" name="contactform">
+						<form id="contact-form" name="contact-form">
 							<div class="row">
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
@@ -162,7 +162,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("form[name='contactform']").submit(function(e) {
+			$("form[name='contact-form']").submit(function(e) {
 	        	var loading = new Loading();
 	            var formData = new FormData($(this)[0]);
             
@@ -175,7 +175,7 @@
 	                	loading.out();
 
 	                	if(response.success){
-	                		$('#contactform').trigger("reset");
+	                		$('#contact-form').trigger("reset");
 
 	                		Swal.fire({
 				                text: response.message,

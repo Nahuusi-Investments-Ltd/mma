@@ -58,34 +58,52 @@
 
 							<div class="tab-content">
 								<div class="tab-pane active" id="safetyCleaningPractices">
-									All mats are cleaned and sanitized between all classes with disinfectant used to destroy germs and viruses including Listeria, e. coli, Pseudomonas, Staphylococcus (MRSA, VISA), salmonella, VRE, C. diff (vegetative form) and harmful bacteria. Virucidal: kills HIV-1, HBV, HCV; Influenza A, herpes simplex types 1 and 2, Avian Influenza A, human corona and SARSassociated corona virus and pathogenic fungi.
-									<br><br>
-									The same disinfectant is used to clean bathroom facilities including door handles.
-									<br><br>
-									All MMA equipment and weight room equipment are cleaned and sanitized after every use with the same cleaner described above.
-									<br><br>
-									All members are required to purchase and use their own training equipment ie. boxing gloves, hand wraps, shin guards, MMA gloves, Jiu Jitsu gis. All personal equipment is to be cleaned and sanitized after each use.
-									<br><br>
-									Hand sanitizer is provided for all members to use.
-									<br><br>
-									Temperatures are taken at the door, using and touchless thermometer	before members are permitted to train.
-									<br><br>
-									No one is permitted within the gym if they display any symptoms of illness, including but not limited to; runny nose, congestion, cough, fever, sore throat, conjunctivitis, diarrhea, and type of rash. 374 MMA has the right to refuse anyone entry if illness is suspected.
+									<?php foreach($standards->result() as $data) { ?>
+									<?php if($data->title == 'Safety & Cleaning Practices') { ?>
+									<?php echo $data->message; ?>
+									<?php break; ?>
+									<?php } ?>
+									<?php } ?>
 								</div>
-								<div class="tab-pane active" id="maskStatus">
-									Content to be updated ...
+								<div class="tab-pane" id="maskStatus">
+									<?php foreach($standards->result() as $data) { ?>
+									<?php if($data->title == 'Mask Status') { ?>
+									<?php echo $data->message; ?>
+									<?php break; ?>
+									<?php } ?>
+									<?php } ?>
 								</div>
 								<div class="tab-pane" id="bookingCapacity">
-									Content to be updated ...
+									<?php foreach($standards->result() as $data) { ?>
+									<?php if($data->title == 'Booking & Capacity') { ?>
+									<?php echo $data->message; ?>
+									<?php break; ?>
+									<?php } ?>
+									<?php } ?>
 								</div>
 								<div class="tab-pane" id="membershipUpdates">
-									Content to be updated ...
+									<?php foreach($standards->result() as $data) { ?>
+									<?php if($data->title == 'Membership Updates') { ?>
+									<?php echo $data->message; ?>
+									<?php break; ?>
+									<?php } ?>
+									<?php } ?>
 								</div>
 								<div class="tab-pane" id="amenitiesEquipment">
-									Content to be updated ...
+									<?php foreach($standards->result() as $data) { ?>
+									<?php if($data->title == 'Amenities & Equipment') { ?>
+									<?php echo $data->message; ?>
+									<?php break; ?>
+									<?php } ?>
+									<?php } ?>
 								</div>
 								<div class="tab-pane" id="classesTraining">
-									Content to be updated ...
+									<?php foreach($standards->result() as $data) { ?>
+									<?php if($data->title == 'Classes & Training') { ?>
+									<?php echo $data->message; ?>
+									<?php break; ?>
+									<?php } ?>
+									<?php } ?>
 								</div>
 							</div>
 							<br>

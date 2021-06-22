@@ -74,6 +74,7 @@ $route['admin/user/login'] = 'login/process_login';
 $route['admin/team'] = 'team';
 $route['admin/faq'] = 'faq';
 $route['admin/schedule'] = 'schedule';
+$route['admin/privacy'] = 'privacy';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

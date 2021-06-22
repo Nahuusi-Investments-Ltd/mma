@@ -117,11 +117,13 @@ class Home extends CI_Controller {
 
 	function standard(){
 		$data['title'] = '374 MMA Standards';
+		$data['standards'] = $this->data_model->get_table_data('tbl_standards');
 		$this->load->view('frontend/content/standard', $data);
 	}
 
 	function privacy(){
 		$data['title'] = 'Privacy Policy at 374 MMA';
+		$data['privacy'] = $this->data_model->get_table_data('tbl_privacy_policy')->row();
 		$this->load->view('frontend/content/privacy', $data);
 	}
 
@@ -178,7 +180,7 @@ class Home extends CI_Controller {
         $this->email->from($_ENV['SMTP_USER'], $_ENV['SITE_TITLE']);
         $this->email->subject($subject);
         $this->email->message($message);
-        $this->email->to($_ENV['SMTP_USER']);
+        $this->email->to($_ENV['ADMIN_EMAIL']);
 
         if($this->email->send())
         	die(json_encode(array(
@@ -188,7 +190,7 @@ class Home extends CI_Controller {
         else
         	die(json_encode(array(
         		'success' => false,
-        		'message' => $this->email->printDebugger(['headers'])
+        		'message' => $this->email->print_debugger()
         	)));
 	}
 
@@ -198,9 +200,9 @@ class Home extends CI_Controller {
 		$name = $this->input->post('firstname_booking').' '.$this->input->post('lastname_booking');
 		$email = $this->input->post('email_booking');
 		$telephone = $this->input->post('telephone_booking');
-		$adult_classes = implode(',', $this->input->post('adult_classes'));
-		$youth_classes = implode(',', $this->input->post('youth_classes'));
-		$kids_classes = implode(',', $this->input->post('kids_classes'));
+		$adult_classes = $this->input->post('adult_classes') ? implode(',', $this->input->post('adult_classes')) : 'NA';
+		$youth_classes = $this->input->post('youth_classes') ? implode(',', $this->input->post('youth_classes')) : 'NA';
+		$kids_classes = $this->input->post('kids_classes') ? implode(',', $this->input->post('kids_classes')) : 'NA';
 		$newsletter = $this->input->post('newsletter');
 
 		$subject = '374MMA New Enrollment';
@@ -224,7 +226,7 @@ class Home extends CI_Controller {
         $this->email->from($_ENV['SMTP_USER'], $_ENV['SITE_TITLE']);
         $this->email->subject($subject);
         $this->email->message($message);
-        $this->email->to($_ENV['SMTP_USER']);
+        $this->email->to($_ENV['ADMIN_EMAIL']);
 
         if($this->email->send())
         	die(json_encode(array(
@@ -234,7 +236,7 @@ class Home extends CI_Controller {
         else
         	die(json_encode(array(
         		'success' => false,
-        		'message' => $this->email->printDebugger(['headers'])
+        		'message' => $this->email->print_debugger()
         	)));
 	}
 }

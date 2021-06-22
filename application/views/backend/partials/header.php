@@ -153,6 +153,15 @@
                         Videos
                     </a>
                 </li>
+                <li class="c-sidebar-nav-title">Testimonials</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('testimony'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-chat-bubble'); ?>"></use>
+                        </svg>
+                        Testimonials
+                    </a>
+                </li>
                 <li class="c-sidebar-nav-title">Schedule</li>
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="<?php echo site_url('admin/schedule'); ?>">
@@ -169,6 +178,23 @@
                             <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-newspaper'); ?>"></use>
                         </svg>
                         Newsletter
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-title">Privacy</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('admin/privacy'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-check'); ?>"></use>
+                        </svg>
+                        Privacy Policy
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="<?php echo site_url('standard'); ?>">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-clipboard'); ?>"></use>
+                        </svg>
+                        Our Standards
                     </a>
                 </li>
             </ul>
@@ -226,6 +252,12 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pt-0">
                             <div class="dropdown-header bg-light py-2"><strong>Account</strong></div>
+                            <a class="dropdown-item" href="<?php echo site_url('admin/password'); ?>">
+                                <svg class="c-icon mr-2">
+                                    <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-lock-locked'); ?>"></use>
+                                </svg>
+                                Change Password
+                            </a>
                             <a class="dropdown-item" href="<?php echo site_url('login/logout'); ?>">
                                 <svg class="c-icon mr-2">
                                     <use xlink:href="<?php echo base_url('node_modules/@coreui/icons/sprites/free.svg#cil-account-logout'); ?>"></use>
